@@ -3,30 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <title>W&J GeoCache</title>
+    <style>
+		#popup {
+			position: fixed;
+			top: 30%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: linear-gradient(135deg, #ffffff, #f0f0f0);
+			border-radius: 12px;
+			padding: 25px 30px;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+			animation: fadeIn 1s ease-in-out;
+			z-index: 1000;
+			text-align: center;
+			max-width: 300px;
+			font-family: 'Segoe UI', sans-serif;
+		}
+
+		#popup p {
+			font-size: 1.1em;
+			margin-bottom: 15px;
+			color: #333;
+		}
+
+		#popup button {
+			background-color: #0078D4;
+			color: white;
+			border: none;
+			padding: 10px 18px;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 1em;
+			transition: background-color 0.3s ease;
+		}
+
+		#popup button:hover {
+			background-color: #005a9e;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translate(-50%, -60%); }
+			to { opacity: 1; transform: translate(-50%, -50%); }
+		}
+		
+		
+		
+		#popup-icon {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			width: 30px;
+			height: 30px;
+		}
+
+
+
+
+/*
+        #popup {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid #333;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+*/		
+		
+        #overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay"></div>
+    <div id="popup">
+        <img id="popup-icon" src="WJ_logo.png" alt="Groetjes, W&J" />
+		<p id="title" style="font-weight: bold;">Welkom op de volgende J&W Geolocatie!</p>
+        <p id="message"></p>
+        <button onclick="redirect()">Ontdek de locatie!</button>
+    </div>
+
     <script>
-        window.onload = function () {
-            // URL parameters ophalen
+        function redirect() {
             const urlParams = new URLSearchParams(window.location.search);
             const lat = urlParams.get('lat');
             const lon = urlParams.get('lon');
-            const message = urlParams.get('msg');
+            const redirectUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+            window.location.href = redirectUrl;
+        }
 
-            // Alert tonen
-            if (message) {
-                alert(decodeURIComponent(message));
-            }
-
-            // Redirect naar Google Maps
-            if (lat && lon) {
-                const bingUrl = `https://www.google.com/maps?q=${lat},${lon}`;
-                window.location.href = bingUrl;
-            } else {
-                document.body.innerHTML = "<h2>Coördinaten ontbreken in de URL.</h2>";
-            }
-        };
+        // Je kunt hier ook de boodschap aanpassen via URL-parameter 'msg'
+        const urlParams = new URLSearchParams(window.location.search);
+        const msg = urlParams.get('msg');
+        if (msg) {
+            document.getElementById('message').textContent = decodeURIComponent(msg);
+        }
     </script>
-</head>
-<body>
-    <p>Even geduld, je wordt doorgestuurd...</p>
 </body>
 </html>
