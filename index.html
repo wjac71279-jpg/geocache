@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>W&J GeoCache</title>
+    <script>
+        window.onload = function () {
+            // URL parameters ophalen
+            const urlParams = new URLSearchParams(window.location.search);
+            const lat = urlParams.get('lat');
+            const lon = urlParams.get('lon');
+            const message = urlParams.get('msg');
+
+            // Alert tonen
+            if (message) {
+                alert(decodeURIComponent(message));
+            }
+
+            // Redirect naar Google Maps
+            if (lat && lon) {
+                const bingUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+                window.location.href = bingUrl;
+            } else {
+                document.body.innerHTML = "<h2>Coördinaten ontbreken in de URL.</h2>";
+            }
+        };
+    </script>
+</head>
+<body>
+    <p>Even geduld, je wordt doorgestuurd...</p>
+</body>
+</html>
