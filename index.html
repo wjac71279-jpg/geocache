@@ -96,6 +96,14 @@
             const urlParams = new URLSearchParams(window.location.search);
             const lat = urlParams.get('lat');
             const lon = urlParams.get('lon');
+
+			// Aanpassen heist hoeske
+			if (lat === '51.075303' && lon === '4.726976') {
+				// Overschrijf met nieuwe waarden
+				lat = '51.075070';
+				lon = '4.726914';
+			}
+
             const redirectUrl = `https://www.google.com/maps?q=${lat},${lon}`;
             window.location.href = redirectUrl;
         }
