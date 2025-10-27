@@ -112,8 +112,13 @@
         const urlParams = new URLSearchParams(window.location.search);
         const msg = urlParams.get('msg');
         if (msg) {
-            document.getElementById('message').textContent = decodeURIComponent(msg);
-        }
+			if (msg.toLowerCase().includes('wachters')) {
+				// Aanpassen QR HEIST - Bypass: vier stenen doorverwijzen naar volgende
+				window.location.href = 'https://wjac71279-jpg.github.io/geocache/index.html?lat=51.075256&lon=4.727899&msg=TIP:%20Wie%20de%20hoogte%20trotseert,%20krijgt%20uitzicht%20én%20een%20aanwijzing.%20Zoek%20waar%20rust%20en%20afval%20samenkomen.';
+			} else {
+				document.getElementById('message').textContent = decodeURIComponent(msg);
+			}
+		}
     </script>
 </body>
 </html>
